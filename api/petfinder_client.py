@@ -4,6 +4,7 @@ from .auth import Auth
 class PetfinderClient:
     BASE_URL = "https://api.petfinder.com/v2"
 
+
     def __init__(self):
         token = Auth.get_access_token()
         self.headers = {"Authorization": f"Bearer {token}"}
