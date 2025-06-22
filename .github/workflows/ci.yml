@@ -28,8 +28,10 @@ jobs:
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}
 
       # Add step to archive the report
-      - name: Archive test report
-        uses: actions/upload-artifact@v3
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: report.html
+          path: |
+            reports/report.html
