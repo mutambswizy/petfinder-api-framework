@@ -19,26 +19,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest-html
 
       - name: Run all tests
-        run: pytest tests/
+        run: pytest tests/ --html=report.html --self-contained-html
         env:
           PETFINDER_CLIENT_ID: ${{ secrets.PETFINDER_CLIENT_ID }}
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}
 
-      - name: Run animal types test
-        run: pytest tests/test_animal_types.py
-
-      - name: Run dog breeds test
-        run: pytest tests/test_dog_breeds.py
-
-      - name: Run Golden Retriever search test
-        run: pytest tests/test_golden_retriever_search.py
-
-      - name: Run mock test (offline)
-        run: pytest tests/test_mocked_animal_types.py
-
-      # Optional: performance test (if enabled with Locust)
-      # You may need to skip this in CI or run in a separate job.
-      # - name: Install Locust and test
-      #   run: locust -f performance/locustfile.py --headless -u 1 -r 1 --run-time 10s --host=https://api.petfinder.com
+      # Add step to archive the report
+      - name: Archive test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: report.html

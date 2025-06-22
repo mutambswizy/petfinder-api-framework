@@ -3,3 +3,6 @@ pytest
 responses
 locust
 python-dotenv
+pytest-html
+
+#pytest --html=report.html
