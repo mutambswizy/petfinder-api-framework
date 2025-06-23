@@ -1,3 +1,4 @@
+
 from api.petfinder_client import PetfinderClient
 
 def test_dog_in_animal_types():

@@ -21,17 +21,21 @@ jobs:
           pip install -r requirements.txt
           pip install pytest-html
 
-      - name: Run all tests
-        run: pytest tests/ --html=report.html --self-contained-html
+      - name: Run unit tests
+        run: pytest tests/ -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
+
+      - name: Run integration tests
+        run: pytest tests/ -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
         env:
           PETFINDER_CLIENT_ID: ${{ secrets.PETFINDER_CLIENT_ID }}
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}
 
-      # Add step to archive the report
-      - name: Upload HTML Report
+      # Upload test reports
+      - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-report
+          name: test-reports
           path: |
-            reports/report.html
+            reports/unit-tests-report.html
+            reports/integration-tests-report.html

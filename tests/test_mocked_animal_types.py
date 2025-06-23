@@ -1,6 +1,9 @@
+import pytest
 import responses
 from api.petfinder_client import PetfinderClient
 
+@pytest.mark.unit
+@pytest.mark.petfinder
 @responses.activate
 def test_mocked_animal_types():
     # Mock the token endpoint
