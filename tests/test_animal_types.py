@@ -1,5 +1,8 @@
+import pytest
 
 from api.petfinder_client import PetfinderClient
+@pytest.mark.integration
+@pytest.mark.animal_types
 
 def test_dog_in_animal_types():
     client = PetfinderClient()

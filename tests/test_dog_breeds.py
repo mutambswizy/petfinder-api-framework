@@ -2,7 +2,7 @@ import pytest
 
 from api.petfinder_client import PetfinderClient
 @pytest.mark.integration
-@pytest.mark.petfinder
+@pytest.mark.breeds
 
 def test_golden_retriever_in_breeds():
     client = PetfinderClient()

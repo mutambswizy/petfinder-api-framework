@@ -22,10 +22,10 @@ jobs:
           pip install pytest-html
 
       - name: Run unit tests
-        run: pytest tests/ -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
+        run: pytest -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
 
       - name: Run integration tests
-        run: pytest tests/ -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
+        run: pytest -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
         env:
           PETFINDER_CLIENT_ID: ${{ secrets.PETFINDER_CLIENT_ID }}
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}
