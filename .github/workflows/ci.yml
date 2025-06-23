@@ -15,22 +15,25 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Create reports directory
+        run: mkdir -p reports
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest-html
+          pip install -e .  # Install the package in development mode
 
       - name: Run unit tests
-        run: pytest -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
+        run: pytest tests/ -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
 
       - name: Run integration tests
-        run: pytest -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
+        run: pytest tests/ -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
         env:
           PETFINDER_CLIENT_ID: ${{ secrets.PETFINDER_CLIENT_ID }}
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}
 
-      # Upload test reports
       - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
