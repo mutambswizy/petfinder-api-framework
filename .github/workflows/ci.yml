@@ -22,14 +22,23 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest-html
-          pip install -e .  # Install the package in development mode
+          pip install pytest-html pytest-logger
 
       - name: Run unit tests
-        run: pytest tests/ -v -m "unit" --html=reports/unit-tests-report.html --self-contained-html
+        run: |
+          pytest tests/ -v -m "unit" \
+            --html=reports/unit-tests-report.html \
+            --self-contained-html \
+            --log-cli-level=INFO \
+            --log-cli-format="%(asctime)s [%(levelname)8s] %(message)s"
 
       - name: Run integration tests
-        run: pytest tests/ -v -m "integration" --html=reports/integration-tests-report.html --self-contained-html
+        run: |
+          pytest tests/ -v -m "integration" \
+            --html=reports/integration-tests-report.html \
+            --self-contained-html \
+            --log-cli-level=INFO \
+            --log-cli-format="%(asctime)s [%(levelname)8s] %(message)s"
         env:
           PETFINDER_CLIENT_ID: ${{ secrets.PETFINDER_CLIENT_ID }}
           PETFINDER_CLIENT_SECRET: ${{ secrets.PETFINDER_CLIENT_SECRET }}

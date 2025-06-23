@@ -1,7 +1,8 @@
 import time
 import pytest
 from api.petfinder_client import PetfinderClient
-
+@pytest.mark.integration
+@pytest.mark.performance
 def test_api_response_times():
     client = PetfinderClient()
     
